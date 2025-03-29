@@ -1,6 +1,7 @@
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
-Date: 
-
+Date: 29/03/25
+Name:Levin Paul David
+Reg No:212224040170
 ### AIM:
 To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
 type to fit the data.
@@ -26,18 +27,36 @@ lags = range(35)
 
 
 #Pre-allocate autocorrelation table
-
+autocorr_values = []
+ 
 #Mean
+mean_data = np.mean(data)
 
 #Variance
+variance_data = np.var(data)
 
 #Normalized data
+normalized_data = (data - mean_data) / np.sqrt(variance_data)
 
 #Go through lag components one-by-one
-
+for lag in lags:
+  if lag == 0:
+    autocorr_values.append(1)
+  else:
+    auto_cov = np.sum((data[:-lag] - mean_data) * (data[lag:] - mean_data)) / N  
+    autocorr_values.append(auto_cov / variance_data)  
+    
 #display the graph
+plt.figure(figsize=(10, 6))
+plt.stem(lags, autocorr_values)
+plt.title('Autocorrelation of Data')
+plt.xlabel('Lag')
+plt.ylabel('Autocorrelation')
+plt.grid(True)
+plt.show()
 
 ### OUTPUT:
+![image](https://github.com/user-attachments/assets/9c653caa-be0b-4f14-ac6f-56d47791b8e8)
 
 ### RESULT:
         Thus we have successfully implemented the auto correlation function in python.
